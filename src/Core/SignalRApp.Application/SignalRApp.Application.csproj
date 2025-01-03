@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SignalRApp.Domain\SignalRApp.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
