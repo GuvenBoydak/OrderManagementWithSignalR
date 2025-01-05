@@ -6,7 +6,7 @@ using SignalRApp.Application.Features.SocialMedia.Commands.Update;
 
 namespace SignalRApp.Api.Controllers;
 
-public class SocialMediaController(IMediator mediator):BaseController
+public class SocialMediasController(IMediator mediator):BaseController
 {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateSocialMediaCommandRequest request)

@@ -6,7 +6,7 @@ using SignalRApp.Application.Features.About.Commands.Update;
 
 namespace SignalRApp.Api.Controllers;
 
-public class AboutController(IMediator mediator) : BaseController
+public class AboutsController(IMediator mediator) : BaseController
 {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateAboutCommandRequest request)

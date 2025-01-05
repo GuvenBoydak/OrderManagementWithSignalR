@@ -6,7 +6,7 @@ using SignalRApp.Application.Features.Booking.Commands.Update;
 
 namespace SignalRApp.Api.Controllers;
 
-public class BookingController(IMediator mediator):BaseController
+public class BookingsController(IMediator mediator):BaseController
 {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateBookingCommandRequest request)

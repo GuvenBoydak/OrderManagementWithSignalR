@@ -6,7 +6,7 @@ using SignalRApp.Application.Features.Product.Commands.Update;
 
 namespace SignalRApp.Api.Controllers;
 
-public class ProductController(IMediator mediator):BaseController
+public class ProductsController(IMediator mediator):BaseController
 {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateProductCommandRequest request)

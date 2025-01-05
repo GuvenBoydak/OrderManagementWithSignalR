@@ -6,7 +6,7 @@ using SignalRApp.Application.Features.Testimonial.Commands.Update;
 
 namespace SignalRApp.Api.Controllers;
 
-public class TestimonialController(IMediator mediator):BaseController
+public class TestimonialsController(IMediator mediator):BaseController
 {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateTestimonialCommandRequest request)

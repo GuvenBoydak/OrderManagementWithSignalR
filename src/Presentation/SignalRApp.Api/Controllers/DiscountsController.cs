@@ -6,7 +6,7 @@ using SignalRApp.Application.Features.Discount.Commands.Update;
 
 namespace SignalRApp.Api.Controllers;
 
-public class DiscountController(IMediator mediator):BaseController
+public class DiscountsController(IMediator mediator):BaseController
 {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateDiscountCommandRequest request)

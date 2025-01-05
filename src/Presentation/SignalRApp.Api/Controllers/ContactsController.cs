@@ -6,7 +6,7 @@ using SignalRApp.Application.Features.Contact.Commands.Update;
 
 namespace SignalRApp.Api.Controllers;
 
-public class ContactController(IMediator mediator):BaseController
+public class ContactsController(IMediator mediator):BaseController
 {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateContactCommandRequest request)

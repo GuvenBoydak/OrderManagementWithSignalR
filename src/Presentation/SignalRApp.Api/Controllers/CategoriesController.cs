@@ -8,7 +8,7 @@ using SignalRApp.Application.Features.Category.Queries.GetCategoryById;
 
 namespace SignalRApp.Api.Controllers;
 
-public class CategoryController(IMediator mediator):BaseController
+public class CategoriesController(IMediator mediator):BaseController
 {
     [HttpGet]
     public async Task<IActionResult> GetAll()

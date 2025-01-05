@@ -6,7 +6,7 @@ using SignalRApp.Application.Features.Feature.Commands.Update;
 
 namespace SignalRApp.Api.Controllers;
 
-public class FeatureController(IMediator mediator):BaseController
+public class FeaturesController(IMediator mediator):BaseController
 {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateFeatureCommandRequest request)

@@ -13,7 +13,6 @@
     <ItemGroup>
       <Folder Include="Features\About\Queries\" />
       <Folder Include="Features\Booking\Queries\" />
-      <Folder Include="Features\Category\Queries\" />
       <Folder Include="Features\Contact\Queries\" />
       <Folder Include="Features\Discount\Queries\" />
       <Folder Include="Features\Feature\Queries\" />

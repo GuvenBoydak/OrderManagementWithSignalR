@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
+using SignalRApp.MvcUI.ConsumerApiServices;
 
 namespace SignalRApp.MvcUI.Controllers;
 
-public class CategoryController : Controller
+public class CategoryController(CategoryService categoryService) : Controller
 {
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var result = await categoryService.GetAllAsync();
+        return View(result);
     }
 }
