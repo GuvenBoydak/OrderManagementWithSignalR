@@ -4,6 +4,8 @@ using SignalRApp.Application.Constants;
 using SignalRApp.Application.Features.Category.Commands.Create;
 using SignalRApp.Application.Features.Category.Commands.Delete;
 using SignalRApp.Application.Features.Category.Commands.Update;
+using SignalRApp.Application.Features.Category.Queries.GetAllCategories;
+using SignalRApp.Application.Features.Category.Queries.GetCategoryById;
 using SignalRApp.Application.Helpers;
 using SignalRApp.Application.Interfaces.Repository;
 using SignalRApp.Application.Interfaces.Service;
@@ -12,22 +14,26 @@ using SignalRApp.Domain.Entities;
 
 namespace SignalRApp.Application.Services;
 
-public class CategoryService(ICategoryRepository categoryRepository,IUnitOfWork unitOfWork,IMapper mapper): ICategoryService
+public class CategoryService(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork, IMapper mapper)
+    : ICategoryService
 {
-    public async Task<Category> GetByIdAsync(int id)
+    public async Task<ServiceResult<GetCategoryByIdDto>> GetByIdAsync(int id)
     {
         var category = await categoryRepository.GetByIdAsync(id);
         if (category is null)
         {
-            throw new Exception(CategoryConstant.NotFound);
+            return ServiceResult<GetCategoryByIdDto>.Failure(CategoryConstant.NotFound);
         }
 
-        return category;
+        var categoryDto = mapper.Map<GetCategoryByIdDto>(category);
+
+        return ServiceResult<GetCategoryByIdDto>.Success(categoryDto);
     }
 
-    public async Task<List<Category>> GetAllAsync()
+    public async Task<ServiceResult<List<GetAllCategoriesDto>>> GetAllAsync()
     {
-        return await categoryRepository.GetAllAsync();
+        var categoryDto = mapper.Map<List<GetAllCategoriesDto>>(await categoryRepository.GetAllAsync());
+        return ServiceResult<List<GetAllCategoriesDto>>.Success(categoryDto);
     }
 
     public async Task<ServiceResult> AddAsync(CreateCategoryCommandRequest request, CancellationToken cancellationToken)
@@ -39,7 +45,8 @@ public class CategoryService(ICategoryRepository categoryRepository,IUnitOfWork 
         return ServiceResult.Success(HttpStatusCode.NoContent);
     }
 
-    public async Task<ServiceResult> UpdateAsync(UpdateCategoryCommandRequest request, CancellationToken cancellationToken)
+    public async Task<ServiceResult> UpdateAsync(UpdateCategoryCommandRequest request,
+        CancellationToken cancellationToken)
     {
         var category = await categoryRepository.GetByIdAsync(request.Id);
         if (category is null)
@@ -53,14 +60,15 @@ public class CategoryService(ICategoryRepository categoryRepository,IUnitOfWork 
         return ServiceResult.Success(HttpStatusCode.NoContent);
     }
 
-    public async Task<ServiceResult> DeleteAsync(DeleteCategoryCommandRequest request, CancellationToken cancellationToken)
-    {  
+    public async Task<ServiceResult> DeleteAsync(DeleteCategoryCommandRequest request,
+        CancellationToken cancellationToken)
+    {
         var category = await categoryRepository.GetByIdAsync(request.Id);
         if (category is null)
         {
             return ServiceResult.Failure(CategoryConstant.NotFound);
         }
-        
+
         categoryRepository.Delete(category);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return ServiceResult.Success(HttpStatusCode.NoContent);

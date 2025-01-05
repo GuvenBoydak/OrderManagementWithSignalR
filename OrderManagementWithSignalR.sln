@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRApp.Persistence", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRApp.Api", "src\Presentation\SignalRApp.Api\SignalRApp.Api.csproj", "{629FCC43-2208-4659-AE8A-9199AEA35E57}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRApp.MvcUI", "src\Presentation\SignalRApp.MvcUI\SignalRApp.MvcUI.csproj", "{B0E9CE63-F4F0-40F3-8705-678A04917A22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{629FCC43-2208-4659-AE8A-9199AEA35E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{629FCC43-2208-4659-AE8A-9199AEA35E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{629FCC43-2208-4659-AE8A-9199AEA35E57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E9CE63-F4F0-40F3-8705-678A04917A22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E9CE63-F4F0-40F3-8705-678A04917A22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E9CE63-F4F0-40F3-8705-678A04917A22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E9CE63-F4F0-40F3-8705-678A04917A22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
