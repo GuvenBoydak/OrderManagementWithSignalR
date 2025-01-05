@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using SignalRApp.Application.Interfaces.Repository;
 using SignalRApp.Domain.Entities;
@@ -21,9 +22,14 @@ public class GenericRepository<T> : IRepository<T> where T : BaseEntity
         return await _entity.FindAsync(id);
     }
 
-    public async Task<List<T>> GetAllAsync()
+    public async Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
     {
-        return await _entity.ToListAsync();
+        IQueryable<T> query = _entity;
+        if (includes?.Length > 0)
+        {
+            query = includes.Aggregate(query, (current, include) => current.Include(include));
+        }
+        return await query.ToListAsync();
     }
 
     public async ValueTask AddAsync(T entity)

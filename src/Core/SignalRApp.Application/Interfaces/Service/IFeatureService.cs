@@ -1,3 +1,7 @@
+using SignalRApp.Application.Features.Feature.Commands.Create;
+using SignalRApp.Application.Features.Feature.Commands.Delete;
+using SignalRApp.Application.Features.Feature.Commands.Update;
+using SignalRApp.Application.Helpers;
 using SignalRApp.Domain.Entities;
 
 namespace SignalRApp.Application.Interfaces.Service;
@@ -6,7 +10,7 @@ public interface IFeatureService
 {
     Task<Feature> GetByIdAsync(int id);
     Task<List<Feature>> GetAllAsync();
-    ValueTask AddAsync(Feature feature,CancellationToken cancellationToken);
-    ValueTask UpdateAsync(Feature feature,CancellationToken cancellationToken);
-    ValueTask DeleteAsync(Feature feature,CancellationToken cancellationToken);
+    Task<ServiceResult> AddAsync(CreateFeatureCommandRequest request,CancellationToken cancellationToken);
+    Task<ServiceResult> UpdateAsync(UpdateFeatureCommandRequest request,CancellationToken cancellationToken);
+    Task<ServiceResult> DeleteAsync(DeleteFeatureCommandRequest request,CancellationToken cancellationToken);
 }

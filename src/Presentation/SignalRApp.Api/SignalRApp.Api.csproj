@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MediatR" Version="12.4.1" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.5"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
           <PrivateAssets>all</PrivateAssets>
@@ -17,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Core\SignalRApp.Application\SignalRApp.Application.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\SignalRApp.Persistence\SignalRApp.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

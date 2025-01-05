@@ -1,3 +1,7 @@
+using SignalRApp.Application.Features.Discount.Commands.Create;
+using SignalRApp.Application.Features.Discount.Commands.Delete;
+using SignalRApp.Application.Features.Discount.Commands.Update;
+using SignalRApp.Application.Helpers;
 using SignalRApp.Domain.Entities;
 
 namespace SignalRApp.Application.Interfaces.Service;
@@ -6,7 +10,7 @@ public interface IDiscountService
 {
     Task<Discount> GetByIdAsync(int id);
     Task<List<Discount>> GetAllAsync();
-    ValueTask AddAsync(Discount discount,CancellationToken cancellationToken);
-    ValueTask UpdateAsync(Discount discount,CancellationToken cancellationToken);
-    ValueTask DeleteAsync(Discount discount,CancellationToken cancellationToken);
+    Task<ServiceResult> AddAsync(CreateDiscountCommandRequest request,CancellationToken cancellationToken);
+    Task<ServiceResult> UpdateAsync(UpdateDiscountCommandRequest request,CancellationToken cancellationToken);
+    Task<ServiceResult> DeleteAsync(DeleteDiscountCommandRequest request,CancellationToken cancellationToken);
 }

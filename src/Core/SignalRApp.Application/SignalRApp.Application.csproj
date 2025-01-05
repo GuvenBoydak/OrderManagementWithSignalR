@@ -10,4 +10,20 @@
       <ProjectReference Include="..\SignalRApp.Domain\SignalRApp.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\About\Queries\" />
+      <Folder Include="Features\Booking\Queries\" />
+      <Folder Include="Features\Category\Queries\" />
+      <Folder Include="Features\Contact\Queries\" />
+      <Folder Include="Features\Discount\Queries\" />
+      <Folder Include="Features\Feature\Queries\" />
+      <Folder Include="Features\SocialMedia\Queries\" />
+      <Folder Include="Features\Testimonial\Queries\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+      <PackageReference Include="MediatR" Version="12.4.1" />
+    </ItemGroup>
+
 </Project>

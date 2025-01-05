@@ -1,3 +1,7 @@
+using SignalRApp.Application.Features.About.Commands.Create;
+using SignalRApp.Application.Features.About.Commands.Delete;
+using SignalRApp.Application.Features.About.Commands.Update;
+using SignalRApp.Application.Helpers;
 using SignalRApp.Domain.Entities;
 
 namespace SignalRApp.Application.Interfaces.Service;
@@ -6,7 +10,7 @@ public interface IAboutService
 {
     Task<About> GetByIdAsync(int id);
     Task<List<About>> GetAllAsync();
-    ValueTask AddAsync(About about,CancellationToken cancellationToken);
-    ValueTask UpdateAsync(About about,CancellationToken cancellationToken);
-    ValueTask DeleteAsync(About about,CancellationToken cancellationToken);
+    Task<ServiceResult> AddAsync(CreateAboutCommandRequest request, CancellationToken cancellationToken);
+    Task<ServiceResult> UpdateAsync(UpdateAboutCommandRequest request, CancellationToken cancellationToken);
+    Task<ServiceResult> DeleteAsync(DeleteAboutCommandRequest request, CancellationToken cancellationToken);
 }

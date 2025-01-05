@@ -1,4 +1,10 @@
+using System.Net;
+using AutoMapper;
 using SignalRApp.Application.Constants;
+using SignalRApp.Application.Features.SocialMedia.Commands.Create;
+using SignalRApp.Application.Features.SocialMedia.Commands.Delete;
+using SignalRApp.Application.Features.SocialMedia.Commands.Update;
+using SignalRApp.Application.Helpers;
 using SignalRApp.Application.Interfaces.Repository;
 using SignalRApp.Application.Interfaces.Service;
 using SignalRApp.Application.Interfaces.UnitOfWork;
@@ -6,7 +12,7 @@ using SignalRApp.Domain.Entities;
 
 namespace SignalRApp.Application.Services;
 
-public class SocialMediaService(ISocialMediaRepository socialMediaRepository,IUnitOfWork unitOfWork): ISocialMediaService
+public class SocialMediaService(ISocialMediaRepository socialMediaRepository,IUnitOfWork unitOfWork,IMapper mapper): ISocialMediaService
 {
     public async Task<SocialMedia> GetByIdAsync(int id)
     {
@@ -24,21 +30,37 @@ public class SocialMediaService(ISocialMediaRepository socialMediaRepository,IUn
         return await socialMediaRepository.GetAllAsync();
     }
 
-    public async ValueTask AddAsync(SocialMedia socialMedia, CancellationToken cancellationToken)
+    public async Task<ServiceResult> AddAsync(CreateSocialMediaCommandRequest request, CancellationToken cancellationToken)
     {
+        var socialMedia = mapper.Map<SocialMedia>(request);
         await socialMediaRepository.AddAsync(socialMedia);
         await unitOfWork.SaveChangesAsync(cancellationToken);
+        return ServiceResult.Success(HttpStatusCode.NoContent);
     }
 
-    public async ValueTask UpdateAsync(SocialMedia socialMedia, CancellationToken cancellationToken)
+    public async Task<ServiceResult> UpdateAsync(UpdateSocialMediaCommandRequest request, CancellationToken cancellationToken)
     {
-        socialMediaRepository.Update(socialMedia);
-        await unitOfWork.SaveChangesAsync(cancellationToken);;
+        var socialMedia = await socialMediaRepository.GetByIdAsync(request.Id);
+        if (socialMedia is null)
+        {
+            return ServiceResult.Failure(SocialMediaConstant.NotFound);
+        }
+
+        var updatedSocialMedia = mapper.Map(request, socialMedia);
+        socialMediaRepository.Update(updatedSocialMedia);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+        return ServiceResult.Success(HttpStatusCode.NoContent);
     }
 
-    public async ValueTask DeleteAsync(SocialMedia socialMedia, CancellationToken cancellationToken)
+    public async Task<ServiceResult> DeleteAsync(DeleteSocialMediaCommandRequest request, CancellationToken cancellationToken)
     {
+        var socialMedia = await socialMediaRepository.GetByIdAsync(request.Id);
+        if (socialMedia is null)
+        {
+            return ServiceResult.Failure(SocialMediaConstant.NotFound);
+        }
         socialMediaRepository.Delete(socialMedia);
         await unitOfWork.SaveChangesAsync(cancellationToken);
+        return ServiceResult.Success(HttpStatusCode.NoContent);
     }
 }
