@@ -4,6 +4,8 @@ using SignalRApp.Application.Constants;
 using SignalRApp.Application.Features.Booking.Commands.Create;
 using SignalRApp.Application.Features.Booking.Commands.Delete;
 using SignalRApp.Application.Features.Booking.Commands.Update;
+using SignalRApp.Application.Features.Booking.Queries.GetAllBookings;
+using SignalRApp.Application.Features.Booking.Queries.GetBookingById;
 using SignalRApp.Application.Helpers;
 using SignalRApp.Application.Interfaces.Repository;
 using SignalRApp.Application.Interfaces.Service;
@@ -14,20 +16,23 @@ namespace SignalRApp.Application.Services;
 
 public class BookingService(IBookingRepository bookingRepository,IUnitOfWork unitOfWork,IMapper mapper): IBookingService
 {
-    public async Task<Booking> GetByIdAsync(int id)
+    public async Task<ServiceResult<GetBookingByIdDto>> GetByIdAsync(int id)
     {
         var booking = await bookingRepository.GetByIdAsync(id);
         if (booking is null)
         {
-            throw new Exception(BookingConstant.NotFound);
+            return ServiceResult<GetBookingByIdDto>.Failure(BookingConstant.NotFound);
         }
 
-        return booking;
+        var bookingsDto = mapper.Map<GetBookingByIdDto>(booking);
+        return ServiceResult<GetBookingByIdDto>.Success(bookingsDto);
     }
 
-    public async Task<List<Booking>> GetAllAsync()
+    public async Task<ServiceResult<List<GetAllBookingsDto>>> GetAllAsync()
     {
-        return await bookingRepository.GetAllAsync();
+        var bookings= await bookingRepository.GetAllAsync();
+        return ServiceResult<List<GetAllBookingsDto>>
+            .Success(mapper.Map<List<GetAllBookingsDto>>(bookings));
     }
 
     public async Task<ServiceResult> AddAsync(CreateBookingCommandRequest request,CancellationToken cancellationToken)

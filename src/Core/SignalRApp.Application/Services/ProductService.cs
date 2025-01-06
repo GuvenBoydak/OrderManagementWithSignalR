@@ -23,7 +23,7 @@ public class ProductService(IProductRepository productRepository,IUnitOfWork uni
         var product = await productRepository.GetByIdAsync(id,x=>x.Category);
         if (product is null)
         {
-            throw new Exception(ProductConstant.NotFound);
+            return ServiceResult<GetProductByIdDto>.Failure(ProductConstant.NotFound);
         }
 
         var productDto = mapper.Map<GetProductByIdDto>(product);
@@ -33,8 +33,9 @@ public class ProductService(IProductRepository productRepository,IUnitOfWork uni
 
     public async Task<ServiceResult<List<GetProductsWithCategoryDto>>> GetProductsWithCategoryAsync()
     {
+        var products = await productRepository.GetAllAsync(x => x.Category);
         var productDto =
-            mapper.Map<List<GetProductsWithCategoryDto>>(await productRepository.GetAllAsync(x => x.Category));
+            mapper.Map<List<GetProductsWithCategoryDto>>(products);
         return ServiceResult<List<GetProductsWithCategoryDto>>.Success(productDto);
     }
 

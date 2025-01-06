@@ -4,6 +4,8 @@ using SignalRApp.Application.Constants;
 using SignalRApp.Application.Features.About.Commands.Create;
 using SignalRApp.Application.Features.About.Commands.Delete;
 using SignalRApp.Application.Features.About.Commands.Update;
+using SignalRApp.Application.Features.About.Queries.GetAboutById;
+using SignalRApp.Application.Features.About.Queries.GetAllAbout;
 using SignalRApp.Application.Helpers;
 using SignalRApp.Application.Interfaces.Repository;
 using SignalRApp.Application.Interfaces.Service;
@@ -14,19 +16,22 @@ namespace SignalRApp.Application.Services;
 
 public class AboutService(IAboutRepository aboutRepository,IUnitOfWork unitOfWork,IMapper mapper): IAboutService
 {
-    public async Task<About> GetByIdAsync(int id)
+    public async Task<ServiceResult<GetAboutByIdDto>> GetByIdAsync(int id)
     {
         var about = await aboutRepository.GetByIdAsync(id);
         if (about is null)
         {
-            throw new Exception(AboutConstant.NotFound);
+            return ServiceResult<GetAboutByIdDto>.Failure(AboutConstant.NotFound);
         }
-        return about;
+
+        var aboutDto = mapper.Map<GetAboutByIdDto>(about);
+        return ServiceResult<GetAboutByIdDto>.Success(aboutDto);
     }
 
-    public async Task<List<About>> GetAllAsync()
+    public async Task<ServiceResult<List<GetAllAboutDto>>> GetAllAsync()
     {
-        return await aboutRepository.GetAllAsync();
+        var aboutDto =  mapper.Map<List<GetAllAboutDto>>(await aboutRepository.GetAllAsync());
+        return ServiceResult<List<GetAllAboutDto>>.Success(aboutDto);
     }
 
     public async Task<ServiceResult> AddAsync(CreateAboutCommandRequest request,CancellationToken cancellationToken)
