@@ -11,8 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Discount\Queries\" />
-      <Folder Include="Features\Feature\Queries\" />
       <Folder Include="Features\SocialMedia\Queries\" />
       <Folder Include="Features\Testimonial\Queries\" />
     </ItemGroup>

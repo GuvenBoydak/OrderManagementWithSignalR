@@ -3,11 +3,27 @@ using Microsoft.AspNetCore.Mvc;
 using SignalRApp.Application.Features.Feature.Commands.Create;
 using SignalRApp.Application.Features.Feature.Commands.Delete;
 using SignalRApp.Application.Features.Feature.Commands.Update;
+using SignalRApp.Application.Features.Feature.Queries.GetAllFeature;
+using SignalRApp.Application.Features.Feature.Queries.GetFeaureById;
 
 namespace SignalRApp.Api.Controllers;
 
-public class FeaturesController(IMediator mediator):BaseController
+public class FeaturesController(IMediator mediator) : BaseController
 {
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var response = await mediator.Send(new GetAllFeatureQueryRequest());
+        return CreateActionResult(response.Result);
+    }
+
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById([FromRoute] GetFeatureByIdQueryRequest request)
+    {
+        var response = await mediator.Send(request);
+        return CreateActionResult(response.Result);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateFeatureCommandRequest request)
     {
@@ -27,5 +43,5 @@ public class FeaturesController(IMediator mediator):BaseController
     {
         var response = await mediator.Send(request);
         return CreateActionResult(response.Result);
-    } 
+    }
 }
