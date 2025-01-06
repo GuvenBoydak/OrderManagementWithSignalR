@@ -17,9 +17,15 @@ public class GenericRepository<T> : IRepository<T> where T : BaseEntity
         _entity = _context.Set<T>();
     }
     
-    public async Task<T> GetByIdAsync(int id)
+    public async Task<T> GetByIdAsync(int id,params Expression<Func<T, object>>[] includes)
     {
-        return await _entity.FindAsync(id);
+        IQueryable<T> query = _entity;
+        if (includes?.Length > 0)
+        {
+            query = includes.Aggregate(query, (current, include) => current.Include(include));
+        }
+
+        return await query.FirstOrDefaultAsync(x=> x.Id == id);
     }
 
     public async Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)

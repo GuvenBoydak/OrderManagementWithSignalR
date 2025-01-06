@@ -1,9 +1,12 @@
 using System.Net;
 using AutoMapper;
 using SignalRApp.Application.Constants;
+using SignalRApp.Application.Features.Category.Queries.GetAllCategories;
+using SignalRApp.Application.Features.Category.Queries.GetCategoryById;
 using SignalRApp.Application.Features.Product.Commands.Create;
 using SignalRApp.Application.Features.Product.Commands.Delete;
 using SignalRApp.Application.Features.Product.Commands.Update;
+using SignalRApp.Application.Features.Product.Queries.GetProductById;
 using SignalRApp.Application.Features.Product.Queries.GetProductsWithCategory;
 using SignalRApp.Application.Helpers;
 using SignalRApp.Application.Interfaces.Repository;
@@ -15,20 +18,17 @@ namespace SignalRApp.Application.Services;
 
 public class ProductService(IProductRepository productRepository,IUnitOfWork unitOfWork,IMapper mapper): IProductService
 {
-    public async Task<Product> GetByIdAsync(int id)
+    public async Task<ServiceResult<GetProductByIdDto>> GetByIdAsync(int id)
     {
-        var product = await productRepository.GetByIdAsync(id);
+        var product = await productRepository.GetByIdAsync(id,x=>x.Category);
         if (product is null)
         {
             throw new Exception(ProductConstant.NotFound);
         }
 
-        return product;
-    }
+        var productDto = mapper.Map<GetProductByIdDto>(product);
 
-    public async Task<List<Product>> GetAllAsync()
-    {
-        return await productRepository.GetAllAsync();
+        return ServiceResult<GetProductByIdDto>.Success(productDto);
     }
 
     public async Task<ServiceResult<List<GetProductsWithCategoryDto>>> GetProductsWithCategoryAsync()

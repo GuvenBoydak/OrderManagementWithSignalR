@@ -38,8 +38,8 @@ public class CategoriesController(IMediator mediator):BaseController
         return CreateActionResult(response.Result);
     }
 
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete([FromBody] DeleteCategoryCommandRequest request)
+    [HttpDelete("{Id:int}")]
+    public async Task<IActionResult> Delete([FromRoute] DeleteCategoryCommandRequest request)
     {
         var response = await mediator.Send(request);
         return CreateActionResult(response.Result);

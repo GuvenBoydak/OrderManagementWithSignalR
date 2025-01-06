@@ -1,4 +1,5 @@
 using AutoMapper;
+using SignalRApp.Application.Features.Category;
 using SignalRApp.Application.Features.Category.Commands.Create;
 using SignalRApp.Application.Features.Category.Commands.Update;
 using SignalRApp.Application.Features.Category.Queries.GetAllCategories;
@@ -15,5 +16,6 @@ public class CategoryMapping:Profile
         CreateMap<Category, UpdateCategoryCommandRequest>().ReverseMap();
         CreateMap<Category, GetAllCategoriesDto>().ReverseMap();
         CreateMap<Category, GetCategoryByIdDto>().ReverseMap();
+        CreateMap<Category, CategoryDto>().ReverseMap();
     }
 }
