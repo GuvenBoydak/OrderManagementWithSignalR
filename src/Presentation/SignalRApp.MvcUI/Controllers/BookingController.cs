@@ -1,20 +1,21 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SignalRApp.MvcUI.ConsumerApiServices;
-using SignalRApp.MvcUI.Models.Request.Category;
+using SignalRApp.MvcUI.Models.Request.Booking;
 
 namespace SignalRApp.MvcUI.Controllers;
 
-public class CategoryController(CategoryService categoryService,IMapper mapper) : Controller
+public class BookingController(BookingService bookingService, IMapper mapper) : Controller
 {
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var result = await categoryService.GetAllAsync();
+        var result = await bookingService.GetAllAsync();
         if (result.IsSuccess)
         {
             return View(result.Data);
         }
+
         return View();
     }
 
@@ -25,9 +26,9 @@ public class CategoryController(CategoryService categoryService,IMapper mapper) 
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateCategoryRequest createCategoryRequest)
+    public async Task<IActionResult> Create(CreateBookingRequest createBookingRequest)
     {
-        var result = await categoryService.AddAsync(createCategoryRequest);
+        var result = await bookingService.AddAsync(createBookingRequest);
         if (result)
         {
             return RedirectToAction("Index");
@@ -38,30 +39,31 @@ public class CategoryController(CategoryService categoryService,IMapper mapper) 
 
     public async Task<IActionResult> Delete([FromRoute(Name = "Id")] int id)
     {
-        var result = await categoryService.DeleteAsync(id);
+        var result = await bookingService.DeleteAsync(id);
         if (result)
         {
             return RedirectToAction("Index");
         }
+
         return View();
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> Update([FromRoute(Name = "Id")] int id)
     {
-        var result = await categoryService.GetByIdAsync(id);
+        var result = await bookingService.GetByIdAsync(id);
         if (result.IsSuccess)
         {
-            return View(mapper.Map<UpdateCategoryRequest>(result.Data));
+            return View(mapper.Map<UpdateBookingRequest>(result.Data));
         }
 
         return RedirectToAction("Index");
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(UpdateCategoryRequest updateCategoryRequest)
+    public async Task<IActionResult> Update(UpdateBookingRequest updateBookingRequest)
     {
-        var result = await categoryService.UpdateAsync(updateCategoryRequest);
+        var result = await bookingService.UpdateAsync(updateBookingRequest);
         if (result)
         {
             return RedirectToAction("Index");
