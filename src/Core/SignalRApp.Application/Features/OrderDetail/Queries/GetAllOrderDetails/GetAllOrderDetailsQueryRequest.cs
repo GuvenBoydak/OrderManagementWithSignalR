@@ -1,0 +1,3 @@
+namespace SignalRApp.Application.Features.OrderDetail.Queries.GetAllOrderDetails;
+
+public record GetAllOrderDetailsQueryRequest():IQuery<GetAllOrderDetailsQueryResponse>;

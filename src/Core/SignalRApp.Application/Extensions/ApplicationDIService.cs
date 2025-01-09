@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SignalRApp.Application.Interfaces.Service;
 using SignalRApp.Application.Services;
+using SignalRApp.Domain.Entities;
 
 namespace SignalRApp.Application.Extensions;
 
@@ -20,6 +21,8 @@ public static class ApplicationDIService
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<ISocialMediaService, SocialMediaService>();
         services.AddScoped<ITestimonialService, TestimonialService>();
+        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<IOrderDetailService, OrderDetailService>();
         
         return services;
     }
