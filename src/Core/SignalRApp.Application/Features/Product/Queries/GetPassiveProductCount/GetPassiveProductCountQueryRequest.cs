@@ -1,0 +1,3 @@
+namespace SignalRApp.Application.Features.Product.Queries.GetPassiveProductCount;
+
+public record GetPassiveProductCountQueryRequest():IQuery<GetPassiveProductCountQueryResponse>;

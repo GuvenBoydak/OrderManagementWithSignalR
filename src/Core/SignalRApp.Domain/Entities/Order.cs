@@ -1,9 +1,11 @@
+using SignalRApp.Domain.Enums;
+
 namespace SignalRApp.Domain.Entities;
 
 public class Order:BaseEntity
 {
     public string TableNumber { get; set; }
-    public string Description { get; set; }
+    public OrderStatus Status { get; set; }
     public DateTime Date { get; set; }
     public decimal TotalPrice { get; set; }
 
