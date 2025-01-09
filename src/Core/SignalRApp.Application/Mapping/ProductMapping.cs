@@ -1,6 +1,7 @@
 using AutoMapper;
 using SignalRApp.Application.Features.Product.Commands.Create;
 using SignalRApp.Application.Features.Product.Commands.Update;
+using SignalRApp.Application.Features.Product.Queries;
 using SignalRApp.Application.Features.Product.Queries.GetProductById;
 using SignalRApp.Application.Features.Product.Queries.GetProductsWithCategory;
 using SignalRApp.Domain.Entities;
@@ -15,5 +16,6 @@ public class ProductMapping:Profile
         CreateMap<Product, UpdateProductCommandRequest>().ReverseMap();
         CreateMap<Product, GetProductsWithCategoryDto>();
         CreateMap<Product, GetProductByIdDto>();
+        CreateMap<Product, ProductDto>();
     }
 }

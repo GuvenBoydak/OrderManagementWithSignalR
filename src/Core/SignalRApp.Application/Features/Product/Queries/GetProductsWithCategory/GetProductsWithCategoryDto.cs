@@ -8,5 +8,4 @@ public record GetProductsWithCategoryDto(
     string Description,
     decimal Price,
     string ImageUrl,
-    bool Status,
     CategoryDto Category);

@@ -1,8 +1,8 @@
 using SignalRApp.Application.Features.Category;
 
-namespace SignalRApp.Application.Features.Product.Queries.GetProductById;
+namespace SignalRApp.Application.Features.Product.Queries;
 
-public record GetProductByIdDto(int Id,
+public record ProductDto(int Id,
     string Name,
     string Description,
     decimal Price,
