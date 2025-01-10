@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.Net;
 using AutoMapper;
 using SignalRApp.Application.Constants;
@@ -16,11 +17,12 @@ using SignalRApp.Domain.Entities;
 
 namespace SignalRApp.Application.Services;
 
-public class ProductService(IProductRepository productRepository,IUnitOfWork unitOfWork,IMapper mapper): IProductService
+public class ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper)
+    : IProductService
 {
     public async Task<ServiceResult<GetProductByIdDto>> GetByIdAsync(int id)
     {
-        var product = await productRepository.GetByIdAsync(id,x=>x.Category);
+        var product = await productRepository.GetByIdAsync(id, x => x.Category);
         if (product is null)
         {
             return ServiceResult<GetProductByIdDto>.Failure(ProductConstant.NotFound);
@@ -39,6 +41,31 @@ public class ProductService(IProductRepository productRepository,IUnitOfWork uni
         return ServiceResult<List<GetProductsWithCategoryDto>>.Success(productDto);
     }
 
+    public async Task<ServiceResult<int>> GetCountAsync(Expression<Func<Product, bool>> predicate = null)
+    {
+        if (predicate is null)
+        {
+            return ServiceResult<int>.Success(await productRepository.GetCountAsync());
+        }
+
+        return ServiceResult<int>.Success(await productRepository.GetCountAsync(predicate));
+    }
+
+    public async Task<ServiceResult<decimal>> GetProductsAveragePriceAsync()
+    {
+        return ServiceResult<decimal>.Success(await productRepository.GetProductsAveragePriceAsync());
+    }
+
+    public async Task<ServiceResult<string>> GetProductNameByMaxPriceAsync()
+    {
+        return ServiceResult<string>.Success(await productRepository.GetProductNameByMaxPriceAsync());
+    }
+
+    public async Task<ServiceResult<string>> ProductNameByMinPriceAsync()
+    {
+        return ServiceResult<string>.Success(await productRepository.ProductNameByMinPriceAsync());
+    }
+
     public async Task<ServiceResult> AddAsync(CreateProductCommandRequest request, CancellationToken cancellationToken)
     {
         var product = mapper.Map<Product>(request);
@@ -47,7 +74,8 @@ public class ProductService(IProductRepository productRepository,IUnitOfWork uni
         return ServiceResult.Success(HttpStatusCode.NoContent);
     }
 
-    public async Task<ServiceResult> UpdateAsync(UpdateProductCommandRequest request, CancellationToken cancellationToken)
+    public async Task<ServiceResult> UpdateAsync(UpdateProductCommandRequest request,
+        CancellationToken cancellationToken)
     {
         var product = await productRepository.GetByIdAsync(request.Id);
         if (product is null)
@@ -61,13 +89,15 @@ public class ProductService(IProductRepository productRepository,IUnitOfWork uni
         return ServiceResult.Success(HttpStatusCode.NoContent);
     }
 
-    public async Task<ServiceResult> DeleteAsync(DeleteProductCommandRequest request, CancellationToken cancellationToken)
+    public async Task<ServiceResult> DeleteAsync(DeleteProductCommandRequest request,
+        CancellationToken cancellationToken)
     {
         var product = await productRepository.GetByIdAsync(request.Id);
         if (product is null)
         {
             return ServiceResult.Failure(ProductConstant.NotFound);
         }
+
         productRepository.Delete(product);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return ServiceResult.Success(HttpStatusCode.NoContent);

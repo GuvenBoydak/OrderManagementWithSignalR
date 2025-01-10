@@ -1,0 +1,3 @@
+namespace SignalRApp.Application.Features.Product.Queries.GetProductNameByMinPrice;
+
+public record GetProductNameByMinPriceQueryRequest():IQuery<GetProductNameByMinPriceQueryResponse>;

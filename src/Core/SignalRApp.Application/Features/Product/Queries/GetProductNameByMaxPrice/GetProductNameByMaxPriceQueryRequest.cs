@@ -1,0 +1,3 @@
+namespace SignalRApp.Application.Features.Product.Queries.GetProductNameByMaxPrice;
+
+public record GetProductNameByMaxPriceQueryRequest():IQuery<GetProductNameByMaxPriceQueryResponse>;

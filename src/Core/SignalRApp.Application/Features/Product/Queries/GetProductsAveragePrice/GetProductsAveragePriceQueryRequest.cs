@@ -1,0 +1,3 @@
+namespace SignalRApp.Application.Features.Product.Queries.GetProductsAveragePrice;
+
+public record GetProductsAveragePriceQueryRequest():IQuery<GetProductsAveragePriceQueryResponse>;
