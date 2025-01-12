@@ -1,3 +1,5 @@
+using SignalRApp.Api.Extensions;
+using SignalRApp.Api.Hubs;
 using SignalRApp.Application.Extensions;
 using SignalRApp.Persistence.Extensions;
 
@@ -10,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddApplicationService().AddPersistenceServices(builder.Configuration);
+builder.Services.AddApiDıService().AddApplicationService().AddPersistenceServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -21,8 +23,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(SignalRConstant.PolicyName);
+
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.MapHub<SignalRHub>(SignalRConstant.EndpoindName);
 
 app.Run();
