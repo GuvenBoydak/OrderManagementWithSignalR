@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.Net;
 using AutoMapper;
 using SignalRApp.Application.Constants;
@@ -34,6 +35,15 @@ public class CategoryService(ICategoryRepository categoryRepository, IUnitOfWork
     {
         var categoryDto = mapper.Map<List<GetAllCategoriesDto>>(await categoryRepository.GetAllAsync());
         return ServiceResult<List<GetAllCategoriesDto>>.Success(categoryDto);
+    }
+
+    public async Task<ServiceResult<int>> GetCountAsync(Expression<Func<Category,bool>> predicate = null)
+    {
+        if (predicate is null)
+        {
+            return ServiceResult<int>.Success(await categoryRepository.GetCountAsync());
+        }
+        return ServiceResult<int>.Success(await categoryRepository.GetCountAsync(predicate));
     }
 
     public async Task<ServiceResult> AddAsync(CreateCategoryCommandRequest request, CancellationToken cancellationToken)

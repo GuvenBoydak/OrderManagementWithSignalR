@@ -38,6 +38,15 @@ public class GenericRepository<T> : IRepository<T> where T : BaseEntity
         return await query.ToListAsync();
     }
 
+    public async Task<int> GetCountAsync(Expression<Func<T, bool>> predicate = null)
+    {
+        if (predicate is null)
+        {
+            return await _entity.CountAsync();
+        }
+        return await _entity.CountAsync(predicate);
+    }
+
     public async ValueTask AddAsync(T entity)
     {
         await _entity.AddAsync(entity);

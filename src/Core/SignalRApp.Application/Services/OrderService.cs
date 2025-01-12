@@ -34,6 +34,21 @@ public class OrderService(IOrderRepository orderRepository, IUnitOfWork unitOfWo
         return ServiceResult<GetOrderByIdDto>.Success(orderDto);
     }
 
+    public async Task<ServiceResult<int>> GetTotalOrder()
+    {
+        return ServiceResult<int>.Success(await orderRepository.GetCountAsync());
+    }
+
+    public async Task<ServiceResult<decimal>> GetTotalPrice()
+    {
+        return ServiceResult<decimal>.Success(await orderRepository.GetTotalPrice());
+    }
+
+    public async Task<ServiceResult<decimal>> GetTodayTotalPrice()
+    {
+        return ServiceResult<decimal>.Success(await orderRepository.GetTodayTotalPrice());
+    }
+
     public async Task<ServiceResult> AddAsync(CreateOrderCommandRequest request, CancellationToken cancellationToken)
     {
         var order = mapper.Map<Order>(request);
