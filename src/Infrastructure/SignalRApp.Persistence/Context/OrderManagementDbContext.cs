@@ -20,4 +20,5 @@ public class OrderManagementDbContext:DbContext
     public DbSet<Testimonial> Testimonials { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderDetail> OrderDetails { get; set; }
+    public DbSet<Slider> Sliders { get; set; }
 }

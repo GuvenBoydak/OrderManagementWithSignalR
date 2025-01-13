@@ -23,6 +23,7 @@ public static class ApplicationDIService
         services.AddScoped<ITestimonialService, TestimonialService>();
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IOrderDetailService, OrderDetailService>();
+        services.AddScoped<ISliderService, SliderService>();
         
         return services;
     }

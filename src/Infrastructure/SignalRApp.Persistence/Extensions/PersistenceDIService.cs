@@ -30,6 +30,7 @@ public static class PersistenceDIService
         services.AddScoped<ITestimonialRepository, TestimonialRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+        services.AddScoped<ISliderRepository, SliderRepository>();
         
         services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
         return services;
