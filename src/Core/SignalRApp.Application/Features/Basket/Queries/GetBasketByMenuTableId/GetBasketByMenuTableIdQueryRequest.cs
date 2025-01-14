@@ -1,0 +1,3 @@
+namespace SignalRApp.Application.Features.Basket.Queries.GetBasketByMenuTableId;
+
+public record GetBasketByMenuTableIdQueryRequest(int Id):IQuery<GetBasketByMenuTableIdQueryResponse>;
