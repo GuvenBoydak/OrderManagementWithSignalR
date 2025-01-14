@@ -1,0 +1,33 @@
+@model List<AboutResponse>
+
+<section class="about_section layout_padding">
+    <div class="container  ">
+
+        <div class="row">
+            @foreach (var about in Model)
+            {
+                <div class="col-md-6 ">
+                    <div class="img-box">
+                        <img src="@about.ImageUrl" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="detail-box">
+                        <div class="heading_container">
+                            <h2>
+                                @about.Title
+                            </h2>
+                        </div>
+                        <p>
+                            @about.Description
+                        </p>
+                        <a href="/About/Index/">
+                            Daha Fazlasını Görün
+                        </a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>

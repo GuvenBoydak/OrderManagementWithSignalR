@@ -1,0 +1,17 @@
+@{
+    ViewData["Tile"] = "Index";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+<div class="hero_area">
+@await Component.InvokeAsync("_DefaultSliderComponentPartial");
+</div>
+@await Component.InvokeAsync("_DefaultOfferComponentPartial");
+
+@await Component.InvokeAsync("_DefaultOurMenuComponentPartial");
+
+@await Component.InvokeAsync("_DefaultAboutComponentPartial");
+
+@await Component.InvokeAsync("_DefaultBookATableComponentPartial");
+
+@await Component.InvokeAsync("_DefaultTestimonialComponentPartial");
+
