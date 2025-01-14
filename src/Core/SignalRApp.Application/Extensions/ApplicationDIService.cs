@@ -24,6 +24,7 @@ public static class ApplicationDIService
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IOrderDetailService, OrderDetailService>();
         services.AddScoped<ISliderService, SliderService>();
+        services.AddScoped<IBasketService, BasketService>();
         
         return services;
     }

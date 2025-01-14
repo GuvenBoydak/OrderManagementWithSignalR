@@ -1,3 +1,4 @@
+using SignalRApp.Application.Dtos;
 using SignalRApp.Application.Features.Category;
 
 namespace SignalRApp.Application.Features.Product.Queries.GetProductById;

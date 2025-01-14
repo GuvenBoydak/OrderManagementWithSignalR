@@ -1,6 +1,6 @@
 using SignalRApp.Domain.Enums;
 
-namespace SignalRApp.Application.Features.Order.Queries;
+namespace SignalRApp.Application.Dtos;
 
 public record OrderDto(int Id,
     string TableNumber,

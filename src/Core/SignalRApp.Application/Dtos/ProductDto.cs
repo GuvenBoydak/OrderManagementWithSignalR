@@ -1,6 +1,4 @@
-using SignalRApp.Application.Features.Category;
-
-namespace SignalRApp.Application.Features.Product.Queries;
+namespace SignalRApp.Application.Dtos;
 
 public record ProductDto(int Id,
     string Name,

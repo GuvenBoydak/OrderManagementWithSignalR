@@ -1,8 +1,6 @@
-using SignalRApp.Application.Features.Order.Queries;
-using SignalRApp.Application.Features.Product;
 using SignalRApp.Application.Features.Product.Queries;
 
-namespace SignalRApp.Application.Features.OrderDetail.Queries;
+namespace SignalRApp.Application.Dtos;
 
 public record OrderDetailDto(int Id,
     int Count,
