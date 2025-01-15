@@ -36,16 +36,16 @@ public class BasketService(IBasketRepository basketRepository, IUnitOfWork unitO
             .Success(mapper.Map<List<GetAllBasketDto>>(baskets));
     }
 
-    public async Task<ServiceResult<GetBasketByMenuTableIdDto>> GetBasketByMenuTableIdAsync(int id)
+    public async Task<ServiceResult<List<GetBasketByMenuTableIdDto>>> GetBasketByMenuTableIdAsync(int id)
     {
-        var basket = await basketRepository.GetByIdAsync(id,x=>x.MenuTable,x=>x.Product);
+        var basket = await basketRepository.GetBasketByMenuTableId(id);
         if (basket is null)
         {
-            return ServiceResult<GetBasketByMenuTableIdDto>.Failure(BasketConstant.NotFound);
+            return ServiceResult<List<GetBasketByMenuTableIdDto>>.Failure(BasketConstant.NotFound);
         }
 
-        var basketDto = mapper.Map<GetBasketByMenuTableIdDto>(basket);
-        return ServiceResult<GetBasketByMenuTableIdDto>.Success(basketDto);
+        var basketDto = mapper.Map<List<GetBasketByMenuTableIdDto>>(basket);
+        return ServiceResult<List<GetBasketByMenuTableIdDto>>.Success(basketDto);
     }
 
     public async Task<ServiceResult> AddAsync(CreateBasketCommandRequest request, CancellationToken cancellationToken)

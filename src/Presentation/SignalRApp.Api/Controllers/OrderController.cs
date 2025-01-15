@@ -27,20 +27,20 @@ public class OrderController(IMediator mediator) : BaseController
         return CreateActionResult(response.Result);
     }
 
-    [HttpGet("{GetTotalOrder}")]
+    [HttpGet("GetTotalOrder")]
     public async Task<IActionResult> GetTotalOrder()
     {
         var response = await mediator.Send(new GetTotalOrderQueryRequest());
         return CreateActionResult(response.Result);
     }
     
-    [HttpGet("{GetTotalPrice}")]
+    [HttpGet("GetTotalPrice")]
     public async Task<IActionResult> GetTotalPrice()
     {
         var response = await mediator.Send(new GetTotalPriceOrderQueryRequest());
         return CreateActionResult(response.Result);
     }
-    [HttpGet("{GetTodayTotalPrice}")]
+    [HttpGet("GetTodayTotalPrice")]
     public async Task<IActionResult> GetTodayTotalPrice()
     {
         var response = await mediator.Send(new GetTodayTotalPriceQueryRequest());

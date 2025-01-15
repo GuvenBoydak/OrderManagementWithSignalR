@@ -24,10 +24,11 @@ public class BasketsController(IMediator mediator) : BaseController
         var response = await mediator.Send(request);
         return CreateActionResult(response.Result);
     }
-    [HttpGet("{GetBasketByMenuTableId}")]
-    public async Task<IActionResult> GetBasketByMenuTableId([FromRoute] GetBasketByMenuTableIdQueryRequest request)
+    
+    [HttpGet("GetBasketByMenuTableId/{id:int}")]
+    public async Task<IActionResult> GetBasketByMenuTableId([FromRoute] int id)
     {
-        var response = await mediator.Send(request);
+        var response = await mediator.Send(new GetBasketByMenuTableIdQueryRequest(id));
         return CreateActionResult(response.Result);
     }
     
