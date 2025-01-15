@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using SignalRApp.Application.Features.Booking.Queries.GetAllBookings;
 using SignalRApp.Application.Features.Category.Queries.GetActiveCategoryCount;
 using SignalRApp.Application.Features.Category.Queries.GetCategoryCount;
 using SignalRApp.Application.Features.Category.Queries.GetPassiveCategoryCount;
@@ -64,5 +65,11 @@ public class SignalRHub(IMediator mediator):Hub
         };
         
         await Clients.All.SendAsync("ReceiveProgressStatistic", progressStatisticData);
+    }
+
+    public async Task GetBookingList()
+    {
+        var booking = await mediator.Send(new GetAllBookingsQueryRequest());
+        Clients.All.SendAsync("sendBookings", booking.Result.Data);
     }
 }
