@@ -1,0 +1,43 @@
+@model SignalRApp.MvcUI.Models.Request.Notification.UpdateNotificationRequest
+
+@{
+    ViewData["Tile"] = "Update";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">Bildirim Güncelleme İşlemleri</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Bildirim Güncelleme</div>
+                        </div>
+                        <input type="hidden" asp-for="Id"/>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="description">Açıklama Giriniz</label>
+                                <input type="text" class="form-control" asp-for="Description" id="description">
+                            </div>
+                            <div class="form-group">
+                                <label for="imageUrl">Icon Giriniz</label>
+                                <input type="text" class="form-control" asp-for="ImageUrl" id="imageUrl">
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Bildirim Türü Giriniz</label>
+                                <input type="text" class="form-control" asp-for="ImageUrl" id="type">
+                            </div>
+                            <input type="hidden" asp-for="IsRead"/>
+                            <div class="card-action">
+                                <button class="btn btn-primary">Bildirim Güncelleme</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
