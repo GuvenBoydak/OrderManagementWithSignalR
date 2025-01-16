@@ -4,6 +4,8 @@ using SignalRApp.Application.Features.Booking.Queries.GetAllBookings;
 using SignalRApp.Application.Features.Category.Queries.GetActiveCategoryCount;
 using SignalRApp.Application.Features.Category.Queries.GetCategoryCount;
 using SignalRApp.Application.Features.Category.Queries.GetPassiveCategoryCount;
+using SignalRApp.Application.Features.Notification.Queries.GetNotificationCountByIsRead;
+using SignalRApp.Application.Features.Notification.Queries.GetNotificationsByIsRead;
 using SignalRApp.Application.Features.Order.Queries.GetTodayTotalPrice;
 using SignalRApp.Application.Features.Order.Queries.GetTotalOrder;
 using SignalRApp.Application.Features.Order.Queries.GetTotalPriceOrder;
@@ -71,5 +73,19 @@ public class SignalRHub(IMediator mediator):Hub
     {
         var booking = await mediator.Send(new GetAllBookingsQueryRequest());
         Clients.All.SendAsync("sendBookings", booking.Result.Data);
+    }
+    
+    public async Task SendNotification()
+    {
+        var unReadNotificationCount = await mediator.Send(new GetNotificationCountByIsReadQueryRequest(false));
+        var unReadNotifications = await mediator.Send(new GetNotificationsByIsReadQueryRequest(false));
+        
+        var notification = new
+        {
+            UnReadNotificationCount = unReadNotificationCount.Result.Data,
+            UnReadNotifications = unReadNotifications.Result.Data
+        };
+        
+        Clients.All.SendAsync("ReceiveNotification",notification);
     }
 }
