@@ -1,6 +1,9 @@
 using SignalRApp.Api.Extensions;
 using SignalRApp.Api.Hubs;
 using SignalRApp.Application.Extensions;
+using SignalRApp.Domain.Entities;
+using SignalRApp.Infrastructure.Extensions;
+using SignalRApp.Persistence.Context;
 using SignalRApp.Persistence.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +15,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddApiDıService().AddApplicationService().AddPersistenceServices(builder.Configuration);
+builder.Services.AddApiDıService().AddApplicationService().AddPersistenceServices(builder.Configuration).AddInfrastructureServiceDI();
+builder.Services.AddDbContext<OrderManagementDbContext>();
+builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<OrderManagementDbContext>();
 
 var app = builder.Build();
 

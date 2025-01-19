@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Core\SignalRApp.Application\SignalRApp.Application.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\SignalRApp.Infrastructure\SignalRApp.Infrastructure.csproj" />
       <ProjectReference Include="..\..\Infrastructure\SignalRApp.Persistence\SignalRApp.Persistence.csproj" />
     </ItemGroup>
 
