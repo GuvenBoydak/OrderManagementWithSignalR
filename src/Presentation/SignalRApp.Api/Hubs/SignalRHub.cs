@@ -20,6 +20,7 @@ namespace SignalRApp.Api.Hubs;
 
 public class SignalRHub(IMediator mediator):Hub
 {
+    public static int ClientCount { get; set; } = 0;
     public async Task SendStatistic()
     {
         var categoryCount = await mediator.Send(new GetCategoryCountQueryRequest());
@@ -87,5 +88,24 @@ public class SignalRHub(IMediator mediator):Hub
         };
         
         Clients.All.SendAsync("ReceiveNotification",notification);
+    }
+    
+    public async Task SendMessage(string user, string message)
+    {
+        await Clients.All.SendAsync("ReceiveMessage", user, message);
+    }
+
+    public async override Task OnConnectedAsync()
+    {
+        ClientCount++;
+        await Clients.All.SendAsync("ReceiveClientCount", ClientCount);
+        await base.OnConnectedAsync();
+    }
+
+    public async override Task OnDisconnectedAsync(Exception? exception)
+    {
+        ClientCount--;
+        await Clients.All.SendAsync("ReceiveClientCount", ClientCount);
+        await base.OnDisconnectedAsync(exception);
     }
 }

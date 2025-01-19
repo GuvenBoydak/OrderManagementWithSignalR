@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SignalRApp.Application.Interfaces.Repository;
-using SignalRApp.Application.Interfaces.Service;
 using SignalRApp.Application.Interfaces.UnitOfWork;
 using SignalRApp.Persistence.Context;
 using SignalRApp.Persistence.Repositories;
@@ -33,6 +32,7 @@ public static class PersistenceDIService
         services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
         services.AddScoped<ISliderRepository, SliderRepository>();
         services.AddScoped<IBasketRepository, BasketRepository>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
         
         services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
         return services;
