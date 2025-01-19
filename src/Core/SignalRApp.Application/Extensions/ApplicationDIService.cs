@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using SignalRApp.Application.Constants;
 using SignalRApp.Application.Interfaces.Service;
 using SignalRApp.Application.Services;
 using SignalRApp.Domain.Entities;
@@ -26,6 +27,7 @@ public static class ApplicationDIService
         services.AddScoped<ISliderService, SliderService>();
         services.AddScoped<IBasketService, BasketService>();
         services.AddScoped<INotificationService, NotificationService>();
+        services.AddScoped<IMessageService, MessageService>();
         
         return services;
     }

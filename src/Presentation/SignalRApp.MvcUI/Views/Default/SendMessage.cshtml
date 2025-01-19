@@ -1,0 +1,44 @@
+@model SignalRApp.MvcUI.Models.Request.Message.CreateMessageRequest
+
+<section class="book_section layout_padding">
+    <div class="container">
+        <div class="heading_container">
+            <h2>
+                Bize Ulaşın
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form_container">
+                    <form method="post" asp-action="SendMessage" asp-controller="Default">
+                        <div>
+                            <input asp-for="NameSurname" type="text" class="form-control" placeholder="İsim Soyisim" />
+                        </div>
+                        <div>
+                            <input asp-for="Phone" type="text" class="form-control" placeholder="Telefon Numarsı" />
+                        </div>
+                        <div>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Email Adres Giriniz" />
+                        </div>
+                        <div>
+                            <input asp-for="Subject" type="text" class="form-control" placeholder="Konu Başlıgı giriniz" />
+                        </div>
+                        <div>
+                            <textarea asp-for="Content" type="text" rows="10" class="form-control" placeholder="Mesajınızı giriniz"></textarea>
+                        </div>
+                        <div class="btn_box">
+                            <button>
+                                Gönder
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="map_container ">
+                    <div id="googleMap"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
