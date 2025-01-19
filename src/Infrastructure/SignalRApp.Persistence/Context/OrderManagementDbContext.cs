@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SignalRApp.Domain.Entities;
 
 namespace SignalRApp.Persistence.Context;
 
-public class OrderManagementDbContext:DbContext
+public class OrderManagementDbContext:IdentityDbContext<AppUser,AppRole,int>
 {
     public OrderManagementDbContext(DbContextOptions options):base(options)   
     {

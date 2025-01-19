@@ -20,6 +20,7 @@ public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     public async Task<T> GetByIdAsync(int id,params Expression<Func<T, object>>[] includes)
     {
         IQueryable<T> query = _entity;
+        query.Where(x => x.IsDeleted == false);
         if (includes?.Length > 0)
         {
             query = includes.Aggregate(query, (current, include) => current.Include(include));
@@ -31,6 +32,7 @@ public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     public async Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
     {
         IQueryable<T> query = _entity;
+        query.Where(x => x.IsDeleted == false);
         if (includes?.Length > 0)
         {
             query = includes.Aggregate(query, (current, include) => current.Include(include));
